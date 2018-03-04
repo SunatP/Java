@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="40dp"
+    android:layout_gravity="center"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/pibul_logo"
+        android:layout_width="13111dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/pblogo"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="0dp" />
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/main_title"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+    android:textSize="20dp"
+        android:autoText="true"
+        android:focusable="true"
+        android:focusableInTouchMode="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/doit_title"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pibul_title"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/school_title"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/continue_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/continue_label"/>
+
+    <Button
+        android:id="@+id/new_game_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/new_game_label"/>
+
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exit_label"/>
+
+</LinearLayout>
+
+

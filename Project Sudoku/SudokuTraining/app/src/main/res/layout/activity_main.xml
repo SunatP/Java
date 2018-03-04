@@ -1,0 +1,89 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="40dp"
+    android:layout_gravity="center"
+    android:weightSum="1">
+
+    <TextView
+        style="@style/CodeFont"
+        android:id="@+id/about_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        android:autoText="true"
+        android:focusable="true"
+        android:text="@string/help6" />
+    <TextView
+        style="@style/CodeFont"
+        android:id="@+id/about_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        android:text="@string/help"
+        android:paddingBottom="0dp"
+        android:autoText="true"
+        android:focusable="true"
+        android:layout_margin="0dp" />
+    <ImageView
+        android:id="@+id/pibul_logo"
+        android:layout_width="13111dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/sudoku"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="0dp" />
+    <TextView
+        style="@style/CodeFont"
+        android:id="@+id/about_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        android:text="@string/help2" />
+    <TextView
+        style="@style/CodeFont"
+        android:id="@+id/about_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="13dp"
+        android:text="@string/help3" />
+    <TextView
+        style="@style/CodeFont"
+        android:id="@+id/about_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="11dp"
+        android:text="@string/help4" />
+    <TextView
+        style="@style/CodeFont"
+        android:id="@+id/about_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="11dp"
+        android:autoText="true"
+        android:focusable="true"
+        android:paddingBottom="0dp"
+        android:text="@string/help5" />
+    <ImageView
+        android:id="@+id/pibul_logo"
+        android:layout_width="13111dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/logowit"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="0dp" />
+</ScrollView>
