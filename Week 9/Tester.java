@@ -1,11 +1,13 @@
-// Weerawat Pawanawiwat 5888125 Section 1
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
-
+/**
+ *
+ * @author Sunat Praphanwong 6088130
+ */
 class Tweet
 {
 	public boolean encrypted = false;
@@ -21,10 +23,10 @@ class Tweet
 	public String toXmlString()
 	{	StringBuilder str = new StringBuilder();
 		str.append("<tweet>\n");
-		str.append("\t<tid>"+tweetID+"</tid>\n");
-		str.append("\t<timestamp>"+timestamp+"</timestamp>\n");
-		str.append("\t<uid>"+uid+"</uid>\n");
-		str.append("\t<text>"+text+"</text>\n");
+		str.append("\t<tid>").append(tweetID).append("</tid>\n");
+		str.append("\t<timestamp>").append(timestamp).append("</timestamp>\n");
+		str.append("\t<uid>").append(uid).append("</uid>\n");
+		str.append("\t<text>").append(text).append("</text>\n");
 		str.append("</tweet>");
 		return str.toString();
 	}
@@ -66,6 +68,7 @@ class Tweet
 	/**
 	 * Return a copy of this tweet
 	 */
+        @Override
 	public Tweet clone()
 	{
 		Tweet t = new Tweet();
@@ -83,24 +86,26 @@ class Tweet
 	 * in a new Tweet object and returns it. If the input string is null, malformed, or 
 	 * does not contain all the tweet elements, it simply returns null. 
 	 * A valid input string has the following format:
-	 * <tweetID>,<timestamp>,“[<uid>]<text>”
+	 * <tweetID>,<timestamp>,ï¿½[<uid>]<text>ï¿½
 	 * Example of the input String:
 	 * 128590282278187009,20111024,"[@ephan331are]@BossGotCash: Shoutout to the guy who got world record of 1 million mileage on his Honda accord today.. Without changing engine, @AliMo103"
 	 */
 	public static Tweet parseTweet(String str)
 	{
 		if(str == null) return null;
-		String pStr = "([0-9]+),([0-9]+),\"\\[(@[^\\]]+)\\]([^\"]+)";	//<--Implement your regular expression here	
+		String pStr = "([0-9]+),([0-9]+),\"\\[(@[^\\]]+)\\]([^\"]+)";	//<--Implement your regular expression here
 		Pattern p = Pattern.compile(pStr);
 		Matcher m = p.matcher(str);
 		Tweet t = null;
 		if(m.find())
-	//		System.out.println(m.group(0));
-		{	t = new Tweet();
-			t.tweetID = Long.parseLong(m.group(1));
-			t.timestamp = Integer.parseInt(m.group(2));
-			t.uid = m.group(3);
-			t.text = m.group(4);
+		{	
+                    t = new Tweet();
+                    t.tweetID = Long.parseLong(m.group(1));
+                    t.timestamp = Integer.parseInt(m.group(2));
+                    t.uid = m.group(3);
+                    t.text = m.group(4);
+			//INSERT YOUR CODE HERE
+			//e.g. t.tweetID = Long.parseLong(m.group(1)); ...
 		}
 		
 		return t;
@@ -110,16 +115,20 @@ class Tweet
 	// ------------------------- BONUS -----------------------------
 	public String getCleanText()
 	{
-		String cleanText = this.text;
-		cleanText = cleanText.replaceAll("@[^ ]+", "");
-		cleanText = cleanText.replaceAll("#[^ ]+", "");
-		cleanText = cleanText.replaceAll("http:[^ ]+", "");
-		cleanText = cleanText.replaceAll("[^\\d\\w]", " ");
-		cleanText = cleanText.replaceAll(" [\\d]+ ", "");
-		cleanText = cleanText.toLowerCase();
-		cleanText = cleanText.replaceAll("[ ]+", " ");
-		cleanText = cleanText.replaceAll("^ ", "");
-		return cleanText;
+            String GCleanText = this.text;
+           
+            GCleanText = GCleanText.replaceAll("@[^ ]+", "");
+            GCleanText = GCleanText.replaceAll("^ ", ""); // include from start of line and character
+            GCleanText = GCleanText.replaceAll("#[^ ]+", "");
+            //GCleanText = GCleanText.replaceAll(":+","");
+            GCleanText = GCleanText.replaceAll("http:[^ ]+", "");
+            GCleanText = GCleanText.replaceAll(",",""); // include comma and replace with ""
+            GCleanText = GCleanText.replaceAll("[^\\d\\w]"," ");  // \d is mean for digit and \w for any word character ^ for start of line  $ end of line  
+            GCleanText = GCleanText.replaceAll(" [\\d]+ ",""); // everything of sqaure bracket and include digit number
+
+            GCleanText = GCleanText.replaceAll("[ ]+"," "); // everything in sqaure bracket
+             GCleanText = GCleanText.toLowerCase();
+		return GCleanText;
 	}
 	//--------------------------------------------------------------
 }
@@ -145,7 +154,7 @@ public class Tester {
 				+"150758963502264320,20111225,\"[@jwizzy24]Looking at cars online :) debating between a 2012 maxima or a 2012 honda accord coupe hmmm #newwheels\"\n";
 		
 		String[] lines = data.split("\\n");
-		Vector<Tweet> tweets = new Vector<Tweet>();
+		Vector<Tweet> tweets = new Vector<Tweet>();	//
 		for(String line: lines)
 		{	line = line.trim();
 			if(line.isEmpty()) continue;
