@@ -358,6 +358,12 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 //List<MyBean> results = select(myList, having(on(MyBean.class).getCategoryName(), org.hamcrest.Matchers.containsString("Dog H")));
 	@Override
 	public List<Movie> sortByTitle(List<Movie> SortWoWTitle, boolean SortBT) {
+/*public static <K, V> void printMap(Map<K, V> map) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            System.out.println("Key : " + entry.getKey()
+				+ " Value : " + entry.getValue());
+        }
+    }*/
 
 		// YOUR CODE GOES HERE
 		if(SortBT == true) {

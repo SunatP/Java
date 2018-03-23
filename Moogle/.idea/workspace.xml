@@ -20,7 +20,7 @@
         <entry file="file://$PROJECT_DIR$/src/BaseMovieSearchEngine.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="31" column="7" lean-forward="true" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+              <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -38,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MoogleTester.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MoogleTester.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MoogleTester.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
@@ -87,13 +87,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleMovieSearchEngine.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SimpleMovieSearchEngine.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SimpleMovieSearchEngine.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+            <state relative-caret-position="279">
+              <caret line="370" column="31" lean-forward="false" selection-start-line="370" selection-start-column="19" selection-end-line="370" selection-end-column="31" />
               <folding>
-                <element signature="e#0#10457#0" expanded="true" />
+                <element signature="e#0#10680#0" expanded="true" />
+                <element signature="imports" expanded="true" />
                 <element signature="e#698#714#0" expanded="true" />
                 <element signature="e#942#958#0" expanded="true" />
                 <element signature="e#6594#6601#0" expanded="true" />
@@ -138,9 +139,9 @@
         <option value="$PROJECT_DIR$/src/MainController.java" />
         <option value="$PROJECT_DIR$/src/Movie.java" />
         <option value="$PROJECT_DIR$/src/User.java" />
-        <option value="$PROJECT_DIR$/src/SimpleMovieSearchEngine.java" />
         <option value="$PROJECT_DIR$/src/Rating.java" />
         <option value="$PROJECT_DIR$/src/MoogleTester.java" />
+        <option value="$PROJECT_DIR$/src/SimpleMovieSearchEngine.java" />
       </list>
     </option>
   </component>
@@ -179,8 +180,14 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/commons-io-2.4.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$" />
+    <property name="AnalyzeApkAction.lastApkPath" value="$PROJECT_DIR$" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="moogle" />
   </component>
   <component name="RecentsManager">
     <key name="ExtractSuperBase.RECENT_KEYS">
@@ -339,12 +346,12 @@
       <workItem from="1521646840434" duration="5482000" />
       <workItem from="1521723594289" duration="11167000" />
       <workItem from="1521734958287" duration="365000" />
-      <workItem from="1521819990957" duration="2414000" />
+      <workItem from="1521819990957" duration="5049000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31888000" />
+    <option name="totallyTimeSpent" value="34523000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -482,7 +489,8 @@
         <state relative-caret-position="119">
           <caret line="7" column="28" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="28" />
           <folding>
-            <element signature="e#0#10457#0" expanded="true" />
+            <element signature="e#0#10680#0" expanded="true" />
+            <element signature="imports" expanded="true" />
             <element signature="e#698#714#0" expanded="true" />
             <element signature="e#942#958#0" expanded="true" />
             <element signature="e#6594#6601#0" expanded="true" />
@@ -580,7 +588,8 @@
         <state relative-caret-position="680">
           <caret line="66" column="69" lean-forward="false" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
           <folding>
-            <element signature="e#0#10457#0" expanded="true" />
+            <element signature="e#0#10680#0" expanded="true" />
+            <element signature="imports" expanded="true" />
             <element signature="e#698#714#0" expanded="true" />
             <element signature="e#942#958#0" expanded="true" />
             <element signature="e#6594#6601#0" expanded="true" />
@@ -678,7 +687,8 @@
         <state relative-caret-position="680">
           <caret line="66" column="69" lean-forward="false" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
           <folding>
-            <element signature="e#0#10457#0" expanded="true" />
+            <element signature="e#0#10680#0" expanded="true" />
+            <element signature="imports" expanded="true" />
             <element signature="e#698#714#0" expanded="true" />
             <element signature="e#942#958#0" expanded="true" />
             <element signature="e#6594#6601#0" expanded="true" />
@@ -769,7 +779,8 @@
         <state relative-caret-position="1071">
           <caret line="92" column="72" lean-forward="false" selection-start-line="92" selection-start-column="72" selection-end-line="92" selection-end-column="72" />
           <folding>
-            <element signature="e#0#10457#0" expanded="true" />
+            <element signature="e#0#10680#0" expanded="true" />
+            <element signature="imports" expanded="true" />
             <element signature="e#698#714#0" expanded="true" />
             <element signature="e#942#958#0" expanded="true" />
             <element signature="e#6594#6601#0" expanded="true" />
@@ -824,14 +835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/function/Function.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -845,7 +848,7 @@
     <entry file="file://$PROJECT_DIR$/src/BaseMovieSearchEngine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="31" column="7" lean-forward="true" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+          <caret line="31" column="7" lean-forward="false" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -887,22 +890,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SimpleMovieSearchEngine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#10457#0" expanded="true" />
-            <element signature="e#698#714#0" expanded="true" />
-            <element signature="e#942#958#0" expanded="true" />
-            <element signature="e#6594#6601#0" expanded="true" />
-            <element signature="e#7039#7046#0" expanded="true" />
-            <element signature="e#7420#7427#0" expanded="true" />
-            <element signature="e#8057#8064#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MoogleTester.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -911,6 +898,31 @@
             <element signature="imports" expanded="true" />
             <element signature="e#270#271#0" expanded="true" />
             <element signature="e#291#292#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_151/src.zip!/java/util/function/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="48" column="6" lean-forward="false" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SimpleMovieSearchEngine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="370" column="31" lean-forward="false" selection-start-line="370" selection-start-column="19" selection-end-line="370" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#10680#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#698#714#0" expanded="true" />
+            <element signature="e#942#958#0" expanded="true" />
+            <element signature="e#6594#6601#0" expanded="true" />
+            <element signature="e#7039#7046#0" expanded="true" />
+            <element signature="e#7420#7427#0" expanded="true" />
+            <element signature="e#8057#8064#0" expanded="true" />
           </folding>
         </state>
       </provider>
