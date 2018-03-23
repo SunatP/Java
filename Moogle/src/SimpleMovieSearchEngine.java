@@ -1,24 +1,15 @@
-// Name:
-// Student ID:
-// Section: 
+// Name: Sunat Praphanwong
+// Student ID: 6088130
+// Section: 1C
 
 import com.google.common.collect.BiMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.io.*;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 	public Map<Integer, Movie> movies;
@@ -119,7 +110,30 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 	@Override
 	public void loadRating(String ratingFilename) {
 		//String csvFile = "data-sample/ratings.csv";
-		String line = "";
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(ratingFilename));
+			String line = "";
+			String pstr = "([0-9]+),([0-9]+),([0-9]\\.[0-9]),([0-9]+)"; // regex
+			Pattern p = Pattern.compile(pstr);
+			Matcher m;
+			br.readLine();
+			while ((line = br.readLine()) != null) {
+				m = p.matcher(line);
+				if (m.matches()) {
+					int uid = Integer.parseInt(m.group(1));
+					int mid = Integer.parseInt(m.group(2));
+					double rating =  Double.parseDouble(m.group(3));
+					long timestamp = Long.parseLong(m.group(4));
+					if(movies.get(mid) != null) {
+						movies.get(mid).addRating(new User(uid),movies.get(mid), rating, timestamp);
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 
 		/*try (BufferedReader br = new BufferedReader(new FileReader(ratingFilename))) {
@@ -153,31 +167,7 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
-		BufferedReader br = null;
-		//String Split = "";
-		String cvsSplitBy = ",";
 
-		try {
-
-			br = new BufferedReader(new FileReader(ratingFilename));
-			while ((line = br.readLine()) != null) {
-				String[] SPsplit = line.split(cvsSplitBy);
-				//			Movie m = new Movie(Integer.parseInt(Split[0]), Split[1].substring(0, Split[1].length() - 7), y);
-				System.out.println(SPsplit[0]+","+SPsplit[1]+","+SPsplit[2]+","+SPsplit[3]);
-               //this.ratings.put();
-			}
-
-		}  catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 			// YOUR CODE GOES HERE
 	}
 
@@ -185,17 +175,17 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 	@Override
 	public void loadData(String movieFilename, String ratingFilename) {
 		movies = loadMovies(movieFilename);
-		this.loadRating(ratingFilename);
+		loadRating(ratingFilename);
 
 		StringBuilder contentBuilder = new StringBuilder();
 
 
-	try(Stream<String> stream = Files.lines(Paths.get(movieFilename))){
+	/*try(Stream<String> stream = Files.lines(Paths.get(movieFilename))){
 			stream.forEach(s -> contentBuilder.append(s).append("\n"));
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		System.out.println(contentBuilder);
+		System.out.println(contentBuilder);*/
 		/*String csvFile = "data-micro/movies.csv";
 		String line = "";
 		String cvsSplitBy = ",";
@@ -225,7 +215,7 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 
 	@Override
 	public Map<Integer, Movie> getAllMovies() {
-		Map<Integer,Movie> gAllMovie = new TreeMap<Integer, Movie>();
+		/*Map<Integer,Movie> gAllMovie = new TreeMap<Integer, Movie>();
 		if (movies != null) {
 			return movies;
 		}
@@ -233,30 +223,20 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 		{
 			return gAllMovie;
 		}
-		return gAllMovie;
+		return gAllMovie;*/
+		return movies;
 	}
 
 	@Override
 	public List<Movie> searchByTitle(String title, boolean exactMatch) {
-		List<Movie> mList = new ArrayList<Movie>();
-
-		// YOUR CODE GOES HERE
-		/*for (int mKey : movKeyMap.values()) {
-			if (exactMatch != false && title == null) {
-				//mList.add(new MovieItem(mMap.get(mKey), predict(mMap.get(mKey), u)));	// add the movie in the year range
-				return mList;
+		List<Movie> result = new ArrayList<Movie>();
+		for (Integer key : movies.keySet()) {
+			String temp = movies.get(key).getTitle().toLowerCase();
+			if (temp.contains(title)) {
+				result.add(movies.get(key));
 			}
 		}
-		return mList;*/
-		Search.clear();
-		for (Movie m1 : inside) {
-			if (m1.getTitle()== null) {
-				inside.add(m1);
-				//inside.add();
-			}
-		}
-
-		return mList;
+		return result;
 	}
 
 	private static List<Movie> inside = new ArrayList<Movie>();
@@ -265,15 +245,31 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 	public List<Movie> searchByTag(String tag) {
 
 		// YOUR CODE GOES HERE
-		
-		return null;
+		List<Movie> result = new ArrayList<Movie>();
+		for(Integer key: movies.keySet()) {
+			Set<String> list = movies.get(key).getTags();
+			for(String x : list) {
+				if(x.contains(tag)) {
+					result.add(movies.get(key));
+				}
+			}
+		}
+		return result;
+
 	}
 
 	@Override
 	public List<Movie>searchByYear(int year) {
 		List<Movie> mList = new ArrayList<Movie>();
 		boolean chk = false;
-		if (this.movies.isEmpty())
+		List<Movie> result = new ArrayList<Movie>();
+		for(Integer key: movies.keySet()) {
+			if(movies.get(key).getYear()==year) {
+				result.add(movies.get(key));
+			}
+		}
+		return result;
+		/*if (this.movies.isEmpty())
 		{
 			return null;
 		}
@@ -292,35 +288,58 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 			{
 				return mList;
 			}
-		}
+		}*/
 		// YOUR CODE GOES HERE
 		
-		return mList;
+
 	}
 
 	@Override
 	public List<Movie> advanceSearch(String title, String tag, int year) {
 		boolean chk = false;
 		List<Movie> mList = new ArrayList<Movie>();
-				//mList = Search(title,tag,year);
-		Pattern reg = Pattern.compile("([0-9]+),([\\w]+),([\\w]+)");
-		for(int i=0;i<this.movies.size();i++) {
-			if(this.movies.get(i).getTitle() == title ||this.movies.get(i).getTitle() == tag || this.movies.get(i).getID() == year) {
-				chk = true;
+		List<Movie> result = new ArrayList<Movie>();
+		for(Integer key: movies.keySet()) {
+			if(title == null) {
+				Set<String> list = movies.get(key).getTags();
+				for(String Slist : list) {
+					if(Slist.contains(tag)) {
+						if(movies.get(key).getYear()==year) {
+							result.add(movies.get(key));
+						}
+					}
+				}
+			}else if(tag == null) {
+				String temp = movies.get(key).getTitle().toLowerCase();
+				if(temp.contains(title)) {
+					if(movies.get(key).getYear()==year) {
+						result.add(movies.get(key));
+					}
+				}
+			}else if(year == -1) {
+				Set<String> list = movies.get(key).getTags();
+				String temp = movies.get(key).getTitle().toLowerCase();
+				for(String Slist : list) {
+					if(temp.contains(title)) {
+						if(Slist.contains(tag)) {
+							result.add(movies.get(key));
+						}
+					}
+				}
+			}else {
+				Set<String> list = movies.get(key).getTags();
+				String temp = movies.get(key).getTitle().toLowerCase();
+				for(String Slist : list) {
+					if(temp.contains(title)) {
+						if(Slist.contains(tag)) {
+							if(movies.get(key).getYear() == year)
+								result.add(movies.get(key));
+						}
+					}
+				}
 			}
-			if (chk)
-			{
-				return mList;
-			}
-			else
-			{
-				return mList;
-			}
-		//if(this.movies)
-		// YOUR CODE GOES HERE
-
-
-	}
+		}
+		return result;
 	/*public List<MyBean> search(List<MyBean> lstBeans, String method, String regExp) {
 		List<MyBean> lstMatch = new ArrayList<>(lstBeans.size());
 		Pattern pattern = Pattern.compile(regExp);
@@ -334,23 +353,32 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 			}
 		}
 		return lstMatch;*/
-		return mList;
+
 	}
 //List<MyBean> results = select(myList, having(on(MyBean.class).getCategoryName(), org.hamcrest.Matchers.containsString("Dog H")));
 	@Override
-	public List<Movie> sortByTitle(List<Movie> unsortedMovies, boolean asc) {
+	public List<Movie> sortByTitle(List<Movie> SortWoWTitle, boolean SortBT) {
 
 		// YOUR CODE GOES HERE
-		
+		if(SortBT == true) {
+			SortWoWTitle.sort(Comparator.comparing(Movie::getTitle));
+			return SortWoWTitle;
+		}else if(SortBT == false) {
+			SortWoWTitle.sort(Comparator.comparing(Movie::getTitle).reversed());
+			return SortWoWTitle;
+		}
 		return null;
 	}
-
 	@Override
-	public List<Movie> sortByRating(List<Movie> unsortedMovies, boolean asc) {
-
+	public List<Movie> sortByRating(List<Movie> FindRatemax2min, boolean SortBR){
 		// YOUR CODE GOES HERE
-		
-		return null;
+		if(SortBR) {
+			FindRatemax2min.sort(Comparator.comparingDouble(Movie::getMeanRating));
+		}else if(SortBR == false) {
+			FindRatemax2min.sort(Comparator.comparingDouble(Movie::getMeanRating).reversed());
+		}
+		return FindRatemax2min;
 	}
+
 
 }
