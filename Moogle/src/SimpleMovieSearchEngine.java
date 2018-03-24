@@ -367,6 +367,8 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 
 		// YOUR CODE GOES HERE
 		if(SortBT == true) {
+			//List<String> sortedNames = names.stream().sorted().collect(Collectors.toList());
+			//List<Movie> sortedName = SortWoWTitle.stream().sorted().collect(Collectors.toList());
 			SortWoWTitle.sort(Comparator.comparing(Movie::getTitle));
 			return SortWoWTitle;
 		}else if(SortBT == false) {
