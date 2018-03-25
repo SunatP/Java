@@ -1,6 +1,6 @@
 /**
  *
- * @author Acer-
+ * @author Sunat Praphanwong 6088130
  */
 import java.io.File;
 import java.io.IOException;
