@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -16,78 +15,67 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
 public class SimpleMovieDatabase {
-	public Map<Integer, Movie> movies = new HashMap<>();
+	public Map<Integer, Movie> movies = new HashMap<Integer, Movie>();
+	
 	
 	public void importMovies(String movieFilename)
-	{	
-            File Movie = new File(movieFilename);
-
-            String line = "";
-            String pstr = "([0-9]+),([^,]+),([^\n]+)";//YOUR CODE GOES HERE
-            Pattern pat = Pattern.compile(pstr); 
-            LineIterator Lineiter;
-            Matcher match ;
-            String[] Space;
-            String[] tags;
-            try {
-			Lineiter = FileUtils.lineIterator(Movie); // Iterate the file using LineIterator
-                        while (Lineiter.hasNext()) 
-                        {   
-                            line = Lineiter.nextLine();
-                            match = pat.matcher(line);
-                            if(match.find())
-                            {
-                                if(match.group(2).trim().equals(""))
-                                {
-                                    continue;
-                                }
-                                Movie movies = new Movie(Integer.parseInt(match.group(1)),match.group(2));
-                                tags = match.group(3).split("\\|");
-                                for(String tag : tags)
-                                {
-                                    movies.tags.add(tag);
-                                }
-                                this.movies.put(Integer.parseInt(match.group(1)), movies);
-                            }
-                    
-                        }
+	{
+		File movieFile = new File(movieFilename);
+		LineIterator li;
+		Pattern mPattern = Pattern.compile("([\\d]+),([^,]+),([^\n]+)");
+		Matcher m;
+		String line;
+		String[] tags;
+		try {
+			li = FileUtils.lineIterator(movieFile);
+			
+			while(li.hasNext()) {
+				line = li.nextLine();
+				m = mPattern.matcher(line);
+				if(m.find()) {
+					if(m.group(2).trim().equals("")) {
+						continue;
+					}
+					Movie movie = new Movie(Integer.parseInt(m.group(1)),m.group(2));
+					tags = m.group(3).split("\\|");
+					for (String tag : tags) {
+						movie.tags.add(tag);
+					}
+					movies.put(Integer.parseInt(m.group(1)), movie);
+				}
+			}
+			
 		}
-            catch (IOException e) {
-			e.printStackTrace(); // Try with another
+		catch (IOException e){
+			e.printStackTrace();
 		}
-		
 	}
 	
 	
 	//-------------------BONUS----------------------
 	public List<Movie> searchMovies(String query) 
 	{
-            List<Movie> Search = new ArrayList<>();
-		for (Movie movies : movies.values()) {
-                    if(movies.title.toLowerCase().contentEquals(query.toLowerCase()))
-                    {
-                        Search.add(movies);
-                    }
-			
-                }
-		return Search;
+		ArrayList<Movie> searchResult = new ArrayList<Movie>();
+		for(Movie m : movies.values()) {
+			if (m.title.toLowerCase().contains(query.toLowerCase())) {
+				searchResult.add(m);
+			}
+		}
+		return searchResult;
 	}
 	
 	public List<Movie> getMoviesByTag(String tag)
 	{
-		List<Movie> Tag = new ArrayList<>();
-		for (Movie movieee : movies.values()) {
-                    for (Iterator<String> it = movieee.tags.iterator(); it.hasNext();) {
-                        String tags = it.next();
-                        if(tags.equals(tag))
-                        {
-                            Tag.add(movieee);
-                            break;
-                        }
-                    }
-			
-                }
-		return Tag;
+		ArrayList<Movie> tagResult = new ArrayList<Movie>();
+		for(Movie m : movies.values()) {
+			for (String t : m.tags) {
+				if (t.equals(tag)) {
+					tagResult.add(m);
+					break;
+				}
+			}
+		}
+		return tagResult;
 	}
 	
 	
