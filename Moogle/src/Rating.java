@@ -11,7 +11,7 @@ public class Rating {
 	public long timestamp;	//timestamp tells you the time this rating was recorded
 	private Double avgRating =0.0;
 	private Map<Integer, Rating> ratings = null;	//mapping userID -> rating
-	
+
 	public Rating(User _u, Movie _m, double _rating, long _timestamp)
 	{
 
@@ -20,7 +20,7 @@ public class Rating {
                 this.m = _m;
                 this.rating = _rating;
                 this.timestamp = _timestamp;
-                
+
 	}
 
 

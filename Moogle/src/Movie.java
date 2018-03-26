@@ -59,7 +59,7 @@ public class Movie {
 
 	@Override
 	public String toString(){
-		return "[movieID: " + mid + ":" + title + " (" + year + ") " + tags + "] -> avg rating: " + getMeanRating();
+		return "[mid: " + mid + ":" + title + " (" + year + ") " + tags + "] -> avg rating: " + getMeanRating();
 	}
 
 	public double calMeanRating()

@@ -20,7 +20,7 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 	@Override
 	public Map<Integer, Movie> loadMovies(String movieFilename) {
 		//File movieFile = new File(movieFilename);
-		Map<Integer,Movie> mMap = new TreeMap<Integer, Movie>();
+		Map<Integer,Movie> mMap = new HashMap<>();
 		//LineIterator Lineiter;
 		//String line;
 		String[] Split;
@@ -95,10 +95,8 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 					Movie _Movie = new Movie(id ,movieFilename,year);
 					this.movies.put(id,_Movie);
 					mMap.put(id, _Movie);
-
 				}
 			}
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -137,7 +135,6 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 
 
 		/*try (BufferedReader br = new BufferedReader(new FileReader(ratingFilename))) {
-
 			while ((line = br.readLine()) != null) {
 				String eachLinePattern = "([\\d]+),([\\d]+),(.*),(\\d+)";
 				Pattern pattern = Pattern.compile(eachLinePattern);
@@ -159,16 +156,13 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 				}
 				// use comma as separator
 				//String[] Movie = line.split(cvsSplitBy);
-
 				//System.out.println(Movie[0]+","+Movie[1]+","+Movie[2]);
-
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
 
-			// YOUR CODE GOES HERE
+		// YOUR CODE GOES HERE
 	}
 
 
@@ -189,19 +183,14 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 		/*String csvFile = "data-micro/movies.csv";
 		String line = "";
 		String cvsSplitBy = ",";
-
 		try (BufferedReader lData = new BufferedReader(new FileReader(csvFile))) {
-
 			while ((line = lData.readLine()) != null) {
-
 				// use comma as separator
 				String[] Movie = line.split(cvsSplitBy);
 				lData.toString();
 				//System.out.println();
 				System.out.println(Movie[0]+","+Movie[1]+","+Movie[2]);
-
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} //*/
@@ -209,8 +198,8 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 		//rMap = loadRating(ratingFilename);
 
 
-	// YOUR CODE GOES HERE
-			
+		// YOUR CODE GOES HERE
+
 	}
 
 	@Override
@@ -290,7 +279,7 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 			}
 		}*/
 		// YOUR CODE GOES HERE
-		
+
 
 	}
 
@@ -344,7 +333,6 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 		List<MyBean> lstMatch = new ArrayList<>(lstBeans.size());
 		Pattern pattern = Pattern.compile(regExp);
 		for (MyBean bean : lstBeans) {
-
 			if (method.equals("categoryName")) {
 				String name = bean.getCategoryName();
 				if (pattern.matcher(name).matches()) {
@@ -355,7 +343,7 @@ public class SimpleMovieSearchEngine implements BaseMovieSearchEngine {
 		return lstMatch;*/
 
 	}
-//List<MyBean> results = select(myList, having(on(MyBean.class).getCategoryName(), org.hamcrest.Matchers.containsString("Dog H")));
+	//List<MyBean> results = select(myList, having(on(MyBean.class).getCategoryName(), org.hamcrest.Matchers.containsString("Dog H")));
 	@Override
 	public List<Movie> sortByTitle(List<Movie> SortWoWTitle, boolean SortBT) {
 /*public static <K, V> void printMap(Map<K, V> map) {
