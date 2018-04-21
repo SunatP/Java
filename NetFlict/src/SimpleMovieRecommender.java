@@ -6,7 +6,9 @@ import org.apache.commons.math3.exception.DimensionMismatchException;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.apache.commons.math3.stat.correlation.SpearmansCorrelation;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -31,22 +33,25 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         Map<Integer, Movie> moviesMap = new HashMap<>();    /* The Map */
 
         //Reading file by using Internal Library
-        String contentBuilder = "";
-        try{
+        String contentBuilder = "";//                       Path is find directory
+            //                           Files from libs    Path from libs
+        try{//                         |--------(1)-------||----(2)--|  String name
+            //                                                       |------(3)-----|
             contentBuilder = new String(Files.readAllBytes(Paths.get(movieFilename)));
+            // BufferedReader br = new BufferedReader( new FileReader( movieFilename ) ); // replace by using String and read all file by Files IO
         }catch(IOException e){
             e.printStackTrace();
         }
         String[] lines = contentBuilder.split("\n");        /* Separating Each lines into String */
 
-        //Pattern for CSV; For example
-        //101529,"Brass Teapot, The (2012)",Comedy|Fantasy|Thriller
-        //  (1) , |-----(2)-------|  |(3)|  |--------(4)----------|
+        //                                                  Pattern for CSV; For example
+        //                                        101529,"Brass Teapot, The (2012)",Comedy|Fantasy|Thriller
+        //                                           (1) , |---(2)---|    (3)       ||----(4)----|
         Pattern eachLinePattern = Pattern.compile("(\\d+),[\\\"?]?(.*)\\s\\((\\d+)\\)[\\\"?]?,(.+)");
 
         //Fields Variable for Movie Datatype
         int movieID, year;
-        String movieTitle, movieGenres;
+        String mTitle, mGenres;
 
         //Pattern for the forth group of eachLinePattern; For example
         //comedy|Fantasy|Thriller
@@ -61,14 +66,14 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             }
 
             movieID = Integer.parseInt(matcher.group(1));       /* Assigns group 1 into movieID field variable */
-            movieTitle = matcher.group(2);       /* Assigns group 2 into movieTitle field variable */
+            mTitle = matcher.group(2);       /* Assigns group 2 into movieTitle field variable */
             year = Integer.parseInt(matcher.group(3));      /* Assigns group 3 into year field variable */
-            movieGenres = matcher.group(4);     /* Assigns group 4 into movieGenres field variable */
-            moviesMap.put(movieID, new Movie(movieID, movieTitle, year));    /* Stores all fields into the Map (the Key is movieID, and the value is a movie object) */
+            mGenres = matcher.group(4);     /* Assigns group 4 into movieGenres field variable */
+            moviesMap.put(movieID, new Movie(movieID, mTitle, year));    /* Stores all fields into the Map (the Key is movieID, and the value is a movie object) */
 
-            matcher = categoriesPattern.matcher(movieGenres);       /* Sets the pattern for the Categories String */
+            matcher = categoriesPattern.matcher(mGenres);       /* Sets the pattern for the Categories String */
 
-            if(movieGenres.equals("(no genres listed)")){   /* If there is no categories to be assigned */
+            if(mGenres.equals("(no genres listed)")){   /* If there is no categories to be assigned */
                 continue;
             }
 
@@ -101,11 +106,6 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             e.printStackTrace();
         }
         String[] line = contentBuilder.toString().split("\n");        /* Separating Each lines into String */
-
-        //for(int l = 0; l < line.length; l++){
-        //    System.out.println(line[l]);
-        //}
-
         //Pattern for the each line of Rating.csv; For example
         //668,108940,2.5,1391840917
         //(1)  (2)   (3)     (4)
@@ -142,40 +142,30 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         return usersMap;
     }
 
-    /**
-     * Calls loadMovies() and loadUser()
-     * @param movieFilename String of relative path and Name of the file
-     * @param userFilename String of relative path and Name of the file
-     */
     @Override
     public void loadData(String movieFilename, String userFilename){
         movies = loadMovies(movieFilename);
         users = loadUsers(userFilename);
     }
 
-    /**
-     * Returns the Movie Map
-     * @return the Movie Map
-     */
     @Override
-    public Map<Integer, Movie> getAllMovies(){
-        return movies;
+    public Map<Integer, Movie> getAllMovies() {
+        if (movies != null) { // if movie not equal to null
+            return movies;    // return to Map
+        }
+        return new TreeMap<Integer, Movie>(); // if movie null create TreeMap to sort
+        // return movies  you can use this return if you don't need to sort
     }
 
-    /**
-     * Returns the User Map
-     * @return the User Map
-     */
     @Override
     public Map<Integer, User> getAllUsers(){
-        return users;
+        if (users != null) { // if user not equal to null
+            return users;    // return to Map
+        }
+        return new TreeMap<>(); // to sort by using Treemap
+        // return users you can use this return if you don't need to sort
     }
 
-    /**
-     * Generates Model file in a form of the given template
-     * Calculates Similarities and keeps them in a form of a Matrix sized <i>Total User * Total User</>
-     * @param modelFilename String of relative path and Name of the file
-     */
     @Override
     public void trainModel(String modelFilename){
         // Instantiates StringBuilder, the StringBuilder acts as a container for the Whole String
@@ -393,21 +383,24 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         Collections.sort(movieItemList);
         if(movieItemList.size() > K){
             movieItemList.subList(K, movieItemList.size() - 1).clear();
+        }if(movieItemList.size() < K)
+        {
+            return movieItemList;
         }
-        return movieItemList;
+        return movieItemList.subList(0,K);
     }
 
     private double similarity(int userID1, int userID2){
 
         //TODO: FIXED
         double similarity;
-        if(userID1 == userID2){
-            return  1;
-        }
+
 
         User u1 = users.get(userID1);
         User u2 = users.get(userID2);
-
+        if(userID1 == userID2){
+            return similarity = 1;
+        }
         // try{
         //     return new SpearmansCorrelation().correlation(Doubles.toArray(ratingToArrayList(u1.ratings.values()))
         //             , Doubles.toArray(ratingToArrayList(u2.ratings.values())));
