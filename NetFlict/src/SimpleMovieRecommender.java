@@ -108,7 +108,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         String[] line = contentBuilder.toString().split("\n");        /* Separating Each lines into String */
         //Pattern for the each line of Rating.csv; For example
         //668,108940,2.5,1391840917
-        //(1)  (2)   (3)     (4)
+        //                           (1)      (2)    (3)  (4)
         String eachLinePattern = "([\\d]+),([\\d]+),(.*),(\\d+)";
         Pattern pattern = Pattern.compile(eachLinePattern);
 
@@ -190,6 +190,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             }else{
                 modelBuilder.append("}\n");
             }
+
         }
 
 
@@ -289,23 +290,6 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             }
             // System.out.println(userID + " " + similarityMatrix.get(userID).size());
         }
-
-       // StringBuilder stringBuilder = new StringBuilder();
-       // for(Integer userID : userIDArrayList){
-       //     stringBuilder.append(String.format("% 3d", userID) + " | ");
-       //     for(Integer userID2 : userIDArrayList){
-       //         stringBuilder.append(String.format("% 3.20f", similarityMatrix.get(userID).get(userID2)) + " ");
-       //     }
-       //     stringBuilder.append("\n");
-       // }
-       //
-       // try{
-       //     FileUtils.writeStringToFile(new File("TestArea/ReadResult_SimMatrix.txt"), stringBuilder.toString());
-       // }catch(IOException e){
-       //     e.printStackTrace();
-       // }
-
-
         // Find the line with "@USERSIM_MATRIX", then get its the line number of the line below it (Get the first line of the matrix)
         int ratingMatrixFirstLine = 0;
         for(int i = 0; i < modelContent.length(); i++){
@@ -372,23 +356,22 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
     }
 
     @Override
-    public List<MovieItem> recommend(User u, int fromYear, int toYear, int K){
+    public List<MovieItem> recommend(User u, int fromYear, int toYear, int K){ // in page 3 of PDF file it's about reccomend
         List<MovieItem> movieItemList = new ArrayList<>();
-        for(Integer movieID : movies.keySet()){
+        for(Integer movieID : movies.keySet()){ // step 2 For each movie 𝑖 ∈ 𝐼∗, compute 𝑝 u,i.
             if(movies.get(movieID).year >= fromYear && movies.get(movieID).year <= toYear){
                 //System.out.println(i++ + " " + predict(movies.get(movieID), u));
-                movieItemList.add(new MovieItem(movies.get(movieID), predict(movies.get(movieID), u)));
+                movieItemList.add(new MovieItem(movies.get(movieID), predict(movies.get(movieID), u))); //step 1 Collect all the movie released during fromYear to toYear à 𝐼∗
             }
         }
-        Collections.sort(movieItemList);
-        if(movieItemList.size() > K){
-            movieItemList.subList(K, movieItemList.size() - 1).clear();
+        Collections.sort(movieItemList); // step 3 Rank the movies
+        if(movieItemList.size() > K){ // if in step 4
+            movieItemList.subList(K, movieItemList.size() - 1).clear(); // step 4 If|𝐼∗| > K, return the top K movies.Otherwise,return all the movies.
         }if(movieItemList.size() < K)
         {
             return movieItemList;
         }
-        return movieItemList.subList(0,K);
-    }
+        return movieItemList.subList( 0,K );    }
 
     private double similarity(int userID1, int userID2){
 
