@@ -81,7 +81,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             //System.out.println(movieGenres);
             while(matcher.find()){
                 //System.out.println("Genres = " + matcher.group());
-                moviesMap.get(movieID).addTag(matcher.group());        //j is actually the movieID
+                moviesMap.get(movieID).addTag(matcher.group());        //now moviesMap will get MovieID to addTag by using Matcher
             }
         }
 
@@ -107,7 +107,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
         String[] line = contentBuilder.toString().split("\n");        /* Separating Each lines into String */
         //Pattern for the each line of Rating.csv; For example
-        //668,108940,2.5,1391840917
+        //                           668,   108940, 2.5, 1391840917
         //                           (1)      (2)    (3)  (4)
         String eachLinePattern = "([\\d]+),([\\d]+),(.*),(\\d+)";
         Pattern pattern = Pattern.compile(eachLinePattern);
@@ -384,7 +384,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         if(userID1 == userID2){
             return similarity = 1;
         }
-      
+
 
         TreeSet<Integer> commonRatedMovies = new TreeSet<>();
         commonRatedMovies.addAll(Sets.intersection(u1.ratings.keySet(), u2.ratings.keySet()));
