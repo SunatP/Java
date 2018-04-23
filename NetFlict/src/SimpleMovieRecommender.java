@@ -384,19 +384,10 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         if(userID1 == userID2){
             return similarity = 1;
         }
-        // try{
-        //     return new SpearmansCorrelation().correlation(Doubles.toArray(ratingToArrayList(u1.ratings.values()))
-        //             , Doubles.toArray(ratingToArrayList(u2.ratings.values())));
-        // }catch(DimensionMismatchException e){
-        //     return 0;
-        // }
+      
 
         TreeSet<Integer> commonRatedMovies = new TreeSet<>();
         commonRatedMovies.addAll(Sets.intersection(u1.ratings.keySet(), u2.ratings.keySet()));
-        // System.out.println(commonRatedMovies);
-        // System.out.println("Intersections: ");
-        // System.out.println(commonRatedMovies);
-        // System.out.println("Calculating user: " + u1.uid + " | user : " + u2.uid);
 
         //Find the remainder
         double remainder = 0;
