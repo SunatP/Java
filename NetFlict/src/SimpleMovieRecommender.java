@@ -144,8 +144,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
 
     @Override
     public void loadData(String movieFilename, String userFilename){
-        movies = loadMovies(movieFilename);
-        users = loadUsers(userFilename);
+        movies = loadMovies(movieFilename); // movies map will load data to store in Map
+        users = loadUsers(userFilename); // users map will load data to store in Map
     }
 
     @Override
@@ -186,16 +186,16 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         for(Integer userID : userIDArrayList){
             modelBuilder.append(countUser++ + "=" + users.get(userID).uid);
             if(!userID.equals(userIDArrayList.get(userIDArrayList.size() - 1))){
-                modelBuilder.append(", ");
+                modelBuilder.append(", "); // add comma to split data
             }else{
-                modelBuilder.append("}\n");
+                modelBuilder.append("}\n");// add bracket and new line
             }
 
         }
 
 
         // Sorts the elements inside the set of MovieID
-        ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet());
+        ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
         Collections.sort(movieIDArrayList);
 
         // Appends the Total movie number
@@ -243,9 +243,9 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
 
         try{
-            FileUtils.writeStringToFile(new File(modelFilename), modelBuilder.toString());
+            FileUtils.writeStringToFile(new File(modelFilename), modelBuilder.toString()); // Write file output to specific folder
         }catch(IOException e){
-            e.printStackTrace();
+            e.printStackTrace(); // if cannot try go catch and print error point
         }
     }
 
@@ -258,7 +258,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
     public void loadModel(String modelFilename){
         String modelContent = null;
         try{
-            modelContent = FileUtils.readFileToString(new File(modelFilename));
+            modelContent = FileUtils.readFileToString(new File(modelFilename)); // Use FileUtils to Read all String data
         }catch(IOException e){
             e.printStackTrace();
         }
