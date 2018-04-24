@@ -1,8 +1,7 @@
 import com.google.common.collect.Sets;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -71,9 +70,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             }
 
             //Assigns each categories to each Movie Object by using its movieID
-            //System.out.println(movieGenres);
             while(matcher.find()){
-                //System.out.println("Genres = " + matcher.group());
                 moviesMap.get(movieID).addTag(matcher.group());        //now moviesMap will get MovieID to addTag by using Matcher
             }
         }
@@ -105,7 +102,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         String eachLinePattern = "([\\d]+),([\\d]+),(.*),(\\d+)";
         Pattern pattern = Pattern.compile(eachLinePattern);
 
-        //Fields Variable for Rating Datatype
+        //Fields Variable for Rating DataType
         int userID;
         int movieId;
         double rating;
@@ -133,6 +130,35 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             }
         }
         return usersMap;
+
+        // You can use this comment to load User Data
+//         Map<Integer,User> uMap = new HashMap<>();
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader(userFilename));
+//            String line = "";
+//            String pstr = "([0-9]+),([0-9]+),([0-9]\\.[0-9]),([0-9]+)"; // regex
+//            Pattern p = Pattern.compile(pstr);
+//            Matcher m;
+//            br.readLine();
+//            while ((line = br.readLine()) != null) {
+//                m = p.matcher(line);
+//                if (m.matches()) {
+//                    int uid = Integer.parseInt(m.group(1));
+//                    int mid = Integer.parseInt(m.group(2));
+//                    double rating =  Double.parseDouble(m.group(3));
+//                    long timestamp = Long.parseLong(m.group(4));
+//                    if(uMap.get(uid) == null) {
+//                        uMap.put(uid , new User(uid));
+//                        //usersMap.get(userID).addRating(movies.get(movieId), rating, timestamp);
+//                        uMap.get(uid).addRating( movies.get( uid ),rating,timestamp );
+//                    }
+//                }
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -146,7 +172,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         if (movies != null) { // if movie not equal to null
             return movies;    // return to Map
         }
-        return new TreeMap<Integer, Movie>(); // if movie null create TreeMap to sort
+        return new TreeMap<>(); // if movie null create TreeMap to sort
         // return movies  you can use this return if you don't need to sort
     }
 
@@ -161,7 +187,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
 
     public void userMap()
     {
-        StringBuilder modelBuilder = new StringBuilder();
+        StringBuilder modelBuilder = new StringBuilder(); // Create StringBuilder to make text
 
 
         // Sorts the elements inside the set of UserID
@@ -288,7 +314,6 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }catch(IOException e){
             e.printStackTrace();
         }
-
         // Find the line with "@USERSIM_MATRIX", then get its the line number of the line below it (Get the first line of the matrix)
         int similarityMatrixFirstLine = 0;
         String[] modelContentLines = modelContent.split("\n");
@@ -315,7 +340,6 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
                 int userID_nested = userIDArrayList.get( i1 );
                 similarityMatrix.get( userID ).put( userID_nested, Double.valueOf( similarityLine_Array[j++] ) );
             }
-            // System.out.println(userID + " " + similarityMatrix.get(userID).size());
         }
         // Find the line with "@USERSIM_MATRIX", then get its the line number of the line below it (Get the first line of the matrix)
         int ratingMatrixFirstLine = 0;
@@ -339,9 +363,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             ArrayList<Double> ratingArrayList = new ArrayList<>();
             for (int k = 0; k <= movies.size(); k++) {
                 ratingArrayList.add( Double.valueOf( ratingLine_Array[k] ) );
-                //System.out.print(ratingLine_Array[k] + " ");
             }
-            //System.out.println();
             meanRatingMatrix.put( userID, ratingArrayList.get( ratingArrayList.size() - 1 ) );
         }
     }
@@ -350,7 +372,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
     //      User ID, Map of   UserID, Similarity Value
     // The map to store value of similarity read from the file
     private HashMap<Integer, Double> meanRatingMatrix = new HashMap<>();
-    //            User ID, Mean Rating Value
+    //              UserID,    Mean Rating Value
     public HashMap<Integer, HashMap<Integer, Double>> getSimilarityMatrix(){
         return similarityMatrix;
     }
@@ -370,10 +392,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         if(meanRatingMatrix.get(user.uid) != null){
             for(Integer userID : users.keySet()){
                 if(userID != user.uid && users.get(userID).ratings.keySet().contains(movie.mid)){
-                    //similarity = similarity(u, user);
                     User currentUser = users.get(userID);
                     similarity = similarityMatrix.get(user.uid).get(currentUser.uid);
-                    //System.out.println("Similarity between (" + u.uid + ", " + user.uid + "): " + similarity);
                     remainder += similarity * (currentUser.ratings.get(movie.mid).rating - meanRatingMatrix.get(currentUser.uid));
                     denominator += Math.abs(similarity);
                 }
@@ -401,7 +421,6 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         List<MovieItem> movieItemList = new ArrayList<>();
         for(Integer movieID : movies.keySet()){ // step 2 For each movie 𝑖 ∈ 𝐼∗, compute 𝑝 u,i.
             if(movies.get(movieID).year >= fromYear && movies.get(movieID).year <= toYear){
-                //System.out.println(i++ + " " + predict(movies.get(movieID), u));
                 movieItemList.add(new MovieItem(movies.get(movieID), predict(movies.get(movieID), u))); //step 1 Collect all the movie released during fromYear to toYear à 𝐼∗
             }
         }
