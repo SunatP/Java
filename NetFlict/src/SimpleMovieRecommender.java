@@ -168,12 +168,13 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
         Collections.sort(userIDArrayList);
         int countUser = 0;
-        for(Integer userID : userIDArrayList){
-            modelBuilder.append(countUser++ + "=" + users.get(userID).uid);
-            if(!userID.equals(userIDArrayList.get(userIDArrayList.size() - 1))){
-                modelBuilder.append(", "); // add comma to split data
-            }else{
-                modelBuilder.append("}\n");// add bracket and new line
+        for (int i = 0; i < userIDArrayList.size(); i++) {
+            Integer userID = userIDArrayList.get( i );
+            modelBuilder.append( countUser++ + "=" + users.get( userID ).uid ); // Like a Print data out
+            if (!userID.equals( userIDArrayList.get( userIDArrayList.size() - 1 ) )) {
+                modelBuilder.append( ", " ); // add comma to split data
+            } else {
+                modelBuilder.append( "}\n" );// add bracket and new line
             }
 
         }
@@ -185,12 +186,13 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
         Collections.sort(movieIDArrayList);
         int countMovie = 0;
-        for(Integer movieID : movieIDArrayList){
-            modelBuilder.append(countMovie++ + "=" + movies.get(movieID).mid);
-            if(!movieID.equals(movieIDArrayList.get(movieIDArrayList.size() - 1))){     /* If the Movie ID is not the last element of the sorted MovieID ArrayList */
-                modelBuilder.append(", ");
-            }else{
-                modelBuilder.append("}\n");
+        for (int i = 0; i < movieIDArrayList.size(); i++) {
+            Integer movieID = movieIDArrayList.get( i );
+            modelBuilder.append( countMovie++ + "=" + movies.get( movieID ).mid );
+            if (!movieID.equals( movieIDArrayList.get( movieIDArrayList.size() - 1 ) )) {     /* If the Movie ID is not the last element of the sorted MovieID ArrayList */
+                modelBuilder.append( ", " );
+            } else {
+                modelBuilder.append( "}\n" );
             }
         }
     }
@@ -201,17 +203,19 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
         ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
         Collections.sort(userIDArrayList);
-        for(Integer userID : userIDArrayList){
+        for (int i = 0; i < userIDArrayList.size(); i++) {
+            Integer userID = userIDArrayList.get( i );
             //System.out.print("UserID: " + userID);
-            for(Integer movieID : movieIDArrayList){
-                if(users.get(userID).ratings.keySet().contains(movieID)){       /* If the User does rate the Movie */
-                    modelBuilder.append(users.get(userID).ratings.get(movieID).rating + " ");
-                }else{      /* If the User does not rate the Movie */
-                    modelBuilder.append("0.0 ");
+            for (int j = 0; j < movieIDArrayList.size(); j++) {
+                Integer movieID = movieIDArrayList.get( j );
+                if (users.get( userID ).ratings.keySet().contains( movieID )) {       /* If the User does rate the Movie */
+                    modelBuilder.append( users.get( userID ).ratings.get( movieID ).rating + " " );
+                } else {      /* If the User does not rate the Movie */
+                    modelBuilder.append( "0.0 " );
                 }
             }
             // Appends the Mean of Rating which a user has given
-            modelBuilder.append(users.get(userID).getMeanRating() + "\n");
+            modelBuilder.append( users.get( userID ).getMeanRating() + "\n" );
         }
     }
 
@@ -221,11 +225,13 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
         ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
         Collections.sort(userIDArrayList);
-        for(Integer userID_I : userIDArrayList){
-            for(Integer userID_J : userIDArrayList){
-                modelBuilder.append(similarity(userID_I, userID_J) + " ");
+        for (int i = 0; i < userIDArrayList.size(); i++) {
+            Integer userID_I = userIDArrayList.get( i );
+            for (int j = 0; j < userIDArrayList.size(); j++) {
+                Integer userID_J = userIDArrayList.get( j );
+                modelBuilder.append( similarity( userID_I, userID_J ) + " " );
             }
-            modelBuilder.append("\n");
+            modelBuilder.append( "\n" );
         }
     }
 
@@ -236,17 +242,14 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
 
 
         // Sorts the elements inside the set of UserID
-        ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
-        Collections.sort(userIDArrayList);
-
-
+        ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet()); // Create ArrayList to store data
+        Collections.sort(userIDArrayList); // ArrayList will allow to sort by using Collections sort
         // Appends the Total user number
         modelBuilder.append("@NUM_USERS " + users.size() + "\n");
 
         // Appends the User map
         modelBuilder.append("@USER_MAP {");
-        userMap();
-
+        userMap(); // This is method can be remove
 
         // Sorts the elements inside the set of MovieID
         ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
@@ -257,20 +260,20 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
 
         // Appends the Movie map
         modelBuilder.append("@MOVIE_MAP {");
-        movieMap();
+        movieMap(); // This is method can remove
 
         // Appends the Rating Matrix
         // From Matrix Let's; Row: Each User
         //                    Col: Each Movie (+ There is Mean Rating of the User after the last movie rating)
         modelBuilder.append("@RATING_MATRIX\n");
-        RatingMatrix();
+        RatingMatrix(); // This is method can remove
 
         // Appends
         modelBuilder.append("@USERSIM_MATRIX\n");
-        UserSimMatrix();
+        UserSimMatrix(); // This is method to calculate USimMatrix it's can be remove
 
         try{
-            FileUtils.writeStringToFile(new File(modelFilename), modelBuilder.toString()); // Write file output to specific folder
+            FileUtils.writeStringToFile(new File(modelFilename), modelBuilder.toString()); // Write data output to specific file
         }catch(IOException e){
             e.printStackTrace(); // if cannot try go catch and print error point
         }
@@ -300,16 +303,17 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
         Collections.sort(userIDArrayList);
 
-
         String similarityLine;
-        for(Integer userID : userIDArrayList){      /* Iterates through the array of User ID */
+        for (int i = 0; i < userIDArrayList.size(); i++) {
+            Integer userID = userIDArrayList.get( i );      /* Iterates through the array of User ID */
             int j = 0;
             similarityLine = modelContentLines[similarityMatrixFirstLine++];
-            String[] similarityLine_Array = similarityLine.split(" ");
+            String[] similarityLine_Array = similarityLine.split( " " );
 
-            similarityMatrix.put(userID, new HashMap<>());
-            for(int userID_nested : userIDArrayList){
-                similarityMatrix.get(userID).put(userID_nested, Double.valueOf(similarityLine_Array[j++]));
+            similarityMatrix.put( userID, new HashMap<>() );
+            for (int i1 = 0; i1 < userIDArrayList.size(); i1++) {
+                int userID_nested = userIDArrayList.get( i1 );
+                similarityMatrix.get( userID ).put( userID_nested, Double.valueOf( similarityLine_Array[j++] ) );
             }
             // System.out.println(userID + " " + similarityMatrix.get(userID).size());
         }
@@ -327,17 +331,18 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         Collections.sort(movieIDArrayList);
 
        String ratingLine;
-        for(Integer userID : userIDArrayList){      /* Iterates through the array of Movie ID */
+        for (int i = 0; i < userIDArrayList.size(); i++) {
+            Integer userID = userIDArrayList.get( i );      /* Iterates through the array of Movie ID */
             ratingLine = modelContentLines[ratingMatrixFirstLine++];
-            String[] ratingLine_Array = ratingLine.split(" ");
+            String[] ratingLine_Array = ratingLine.split( " " );
 
             ArrayList<Double> ratingArrayList = new ArrayList<>();
-            for(int k = 0; k <= movies.size(); k++){
-                ratingArrayList.add(Double.valueOf(ratingLine_Array[k]));
+            for (int k = 0; k <= movies.size(); k++) {
+                ratingArrayList.add( Double.valueOf( ratingLine_Array[k] ) );
                 //System.out.print(ratingLine_Array[k] + " ");
             }
             //System.out.println();
-            meanRatingMatrix.put(userID, ratingArrayList.get(ratingArrayList.size() - 1));
+            meanRatingMatrix.put( userID, ratingArrayList.get( ratingArrayList.size() - 1 ) );
         }
     }
 
@@ -407,7 +412,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         {
             return movieItemList;
         }
-        return movieItemList.subList( 0,K );    }
+        return movieItemList.subList( 0,K );
+    }
 
     private double similarity(int userID1, int userID2){
 
@@ -450,6 +456,4 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
         return doubleArrayList;
     }
-
-
 }
