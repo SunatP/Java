@@ -1,14 +1,7 @@
 import com.google.common.collect.Sets;
-import com.google.common.math.DoubleMath;
-import com.google.common.primitives.Doubles;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.math3.exception.DimensionMismatchException;
-import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
-import org.apache.commons.math3.stat.correlation.SpearmansCorrelation;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -166,6 +159,76 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         // return users you can use this return if you don't need to sort
     }
 
+    public void userMap()
+    {
+        StringBuilder modelBuilder = new StringBuilder();
+
+
+        // Sorts the elements inside the set of UserID
+        ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
+        Collections.sort(userIDArrayList);
+        int countUser = 0;
+        for(Integer userID : userIDArrayList){
+            modelBuilder.append(countUser++ + "=" + users.get(userID).uid);
+            if(!userID.equals(userIDArrayList.get(userIDArrayList.size() - 1))){
+                modelBuilder.append(", "); // add comma to split data
+            }else{
+                modelBuilder.append("}\n");// add bracket and new line
+            }
+
+        }
+    }
+
+    public void movieMap()
+    {
+        StringBuilder modelBuilder = new StringBuilder();
+        ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
+        Collections.sort(movieIDArrayList);
+        int countMovie = 0;
+        for(Integer movieID : movieIDArrayList){
+            modelBuilder.append(countMovie++ + "=" + movies.get(movieID).mid);
+            if(!movieID.equals(movieIDArrayList.get(movieIDArrayList.size() - 1))){     /* If the Movie ID is not the last element of the sorted MovieID ArrayList */
+                modelBuilder.append(", ");
+            }else{
+                modelBuilder.append("}\n");
+            }
+        }
+    }
+
+    public void RatingMatrix()
+    {
+        StringBuilder modelBuilder = new StringBuilder();
+        ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
+        ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
+        Collections.sort(userIDArrayList);
+        for(Integer userID : userIDArrayList){
+            //System.out.print("UserID: " + userID);
+            for(Integer movieID : movieIDArrayList){
+                if(users.get(userID).ratings.keySet().contains(movieID)){       /* If the User does rate the Movie */
+                    modelBuilder.append(users.get(userID).ratings.get(movieID).rating + " ");
+                }else{      /* If the User does not rate the Movie */
+                    modelBuilder.append("0.0 ");
+                }
+            }
+            // Appends the Mean of Rating which a user has given
+            modelBuilder.append(users.get(userID).getMeanRating() + "\n");
+        }
+    }
+
+    public void UserSimMatrix()
+    {
+        StringBuilder modelBuilder = new StringBuilder();
+        ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
+        ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
+        Collections.sort(userIDArrayList);
+        for(Integer userID_I : userIDArrayList){
+            for(Integer userID_J : userIDArrayList){
+                modelBuilder.append(similarity(userID_I, userID_J) + " ");
+            }
+            modelBuilder.append("\n");
+        }
+    }
+
     @Override
     public void trainModel(String modelFilename){
         // Instantiates StringBuilder, the StringBuilder acts as a container for the Whole String
@@ -182,16 +245,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
 
         // Appends the User map
         modelBuilder.append("@USER_MAP {");
-        int countUser = 0;
-        for(Integer userID : userIDArrayList){
-            modelBuilder.append(countUser++ + "=" + users.get(userID).uid);
-            if(!userID.equals(userIDArrayList.get(userIDArrayList.size() - 1))){
-                modelBuilder.append(", "); // add comma to split data
-            }else{
-                modelBuilder.append("}\n");// add bracket and new line
-            }
-
-        }
+        userMap();
 
 
         // Sorts the elements inside the set of MovieID
@@ -203,44 +257,17 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
 
         // Appends the Movie map
         modelBuilder.append("@MOVIE_MAP {");
-        int countMovie = 0;
-        for(Integer movieID : movieIDArrayList){
-            modelBuilder.append(countMovie++ + "=" + movies.get(movieID).mid);
-            if(!movieID.equals(movieIDArrayList.get(movieIDArrayList.size() - 1))){     /* If the Movie ID is not the last element of the sorted MovieID ArrayList */
-                modelBuilder.append(", ");
-            }else{
-                modelBuilder.append("}\n");
-            }
-        }
+        movieMap();
 
         // Appends the Rating Matrix
         // From Matrix Let's; Row: Each User
         //                    Col: Each Movie (+ There is Mean Rating of the User after the last movie rating)
         modelBuilder.append("@RATING_MATRIX\n");
-        for(Integer userID : userIDArrayList){
-            //System.out.print("UserID: " + userID);
-            for(Integer movieID : movieIDArrayList){
-                if(users.get(userID).ratings.keySet().contains(movieID)){       /* If the User does rate the Movie */
-                    modelBuilder.append(users.get(userID).ratings.get(movieID).rating + " ");
-                }else{      /* If the User does not rate the Movie */
-                    modelBuilder.append("0.0 ");
-                }
-            }
-            // Appends the Mean of Rating which a user has given
-            modelBuilder.append(users.get(userID).getMeanRating() + "\n");
-        }
+        RatingMatrix();
 
         // Appends
         modelBuilder.append("@USERSIM_MATRIX\n");
-        for(Integer userID_I : userIDArrayList){
-            //System.out.println(userID_I + " -----------------------");
-            for(Integer userID_J : userIDArrayList){
-                //System.out.print(userID_J + " ");
-                modelBuilder.append(similarity(userID_I, userID_J) + " ");
-            }
-            //System.out.println("\n");
-            modelBuilder.append("\n");
-        }
+        UserSimMatrix();
 
         try{
             FileUtils.writeStringToFile(new File(modelFilename), modelBuilder.toString()); // Write file output to specific folder
@@ -249,11 +276,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
     }
 
-    private HashMap<Integer, HashMap<Integer, Double>> similarityMatrix = new HashMap<>();
-    //      User ID, Map of   UserID, Similarity Value
-    // The map to store value of similarity read from the file
-    private HashMap<Integer, Double> meanRatingMatrix = new HashMap<>();
-    //      User ID, Mean Rating Value
+
     @Override
     public void loadModel(String modelFilename){
         String modelContent = null;
@@ -316,6 +339,19 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
             //System.out.println();
             meanRatingMatrix.put(userID, ratingArrayList.get(ratingArrayList.size() - 1));
         }
+    }
+
+    private HashMap<Integer, HashMap<Integer, Double>> similarityMatrix = new HashMap<>();
+    //      User ID, Map of   UserID, Similarity Value
+    // The map to store value of similarity read from the file
+    private HashMap<Integer, Double> meanRatingMatrix = new HashMap<>();
+    //            User ID, Mean Rating Value
+    public HashMap<Integer, HashMap<Integer, Double>> getSimilarityMatrix(){
+        return similarityMatrix;
+    }
+
+    public HashMap<Integer, Double> getMeanRatingMatrix(){
+        return meanRatingMatrix;
     }
 
     @Override
@@ -415,11 +451,5 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         return doubleArrayList;
     }
 
-    public HashMap<Integer, HashMap<Integer, Double>> getSimilarityMatrix(){
-        return similarityMatrix;
-    }
 
-    public HashMap<Integer, Double> getMeanRatingMatrix(){
-        return meanRatingMatrix;
-    }
 }
