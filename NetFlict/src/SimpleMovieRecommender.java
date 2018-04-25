@@ -439,12 +439,12 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         //TODO: FIXED
         double similarity;
 
-
         User u1 = users.get(userID1);
         User u2 = users.get(userID2);
         if(userID1 == userID2){
             return similarity = 1;
         }
+
 
 
         TreeSet<Integer> commonRatedMovies = new TreeSet<>();
@@ -456,8 +456,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         double denominatorUser2 = 0;
         for(int movieID : commonRatedMovies){
             remainder += ((u1.ratings.get(movieID).rating - u1.getMeanRating()) * (u2.ratings.get(movieID).rating - u2.getMeanRating()));
-            denominatorUser1 += (u1.ratings.get(movieID).rating - u1.getMeanRating()) * (u1.ratings.get(movieID).rating - u1.getMeanRating());
-            denominatorUser2 += (u2.ratings.get(movieID).rating - u2.getMeanRating()) * (u2.ratings.get(movieID).rating - u2.getMeanRating());
+            denominatorUser1 += Math.pow(u1.ratings.get(movieID).rating - u1.getMeanRating(),2); //* (u1.ratings.get(movieID).rating - u1.getMeanRating());
+            denominatorUser2 += Math.pow(u2.ratings.get(movieID).rating - u2.getMeanRating(),2); // * (u2.ratings.get(movieID).rating - u2.getMeanRating());
         }
         double denominator = (Math.sqrt(denominatorUser1 * denominatorUser2));
         if(denominator != 0){
