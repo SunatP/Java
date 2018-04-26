@@ -184,7 +184,9 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         return new TreeMap<>(); // to sort by using Treemap
         // return users you can use this return if you don't need to sort
     }
-//------------------------------------------------------------------------------ Train Model -------------------------------------------------------------------------------//
+
+//------------------------------------------- Train Model ----------------------------------------------------------//
+
     public void userMap() // use in trainmodel method
     {
         StringBuilder modelBuilder = new StringBuilder(); // Create StringBuilder to make text
@@ -305,8 +307,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
     }
 
-//------------------------------------------------------------------------------ Train Model -------------------------------------------------------------------------------//
-
+    //------------------------------------------- Train Model ----------------------------------------------------------//
+    
     @Override
     public void loadModel(String modelFilename){
         String modelContent = null;
