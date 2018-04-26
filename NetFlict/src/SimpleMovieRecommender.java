@@ -185,7 +185,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         // return users you can use this return if you don't need to sort
     }
 
-    public void userMap()
+    public void userMap() // use in trainmodel method
     {
         StringBuilder modelBuilder = new StringBuilder(); // Create StringBuilder to make text
 
@@ -206,7 +206,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
     }
 
-    public void movieMap()
+    public void movieMap() // use in trainmodel method
     {
         StringBuilder modelBuilder = new StringBuilder();
         ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
@@ -223,7 +223,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
     }
 
-    public void RatingMatrix()
+    public void RatingMatrix() // use in trainmodel method
     {
         StringBuilder modelBuilder = new StringBuilder();
         ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
@@ -245,7 +245,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         }
     }
 
-    public void UserSimMatrix()
+    public void UserSimMatrix() // use in trainmodel method
     {
         StringBuilder modelBuilder = new StringBuilder();
         ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
