@@ -226,7 +226,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
     }
 
     public void RatingMatrix() // use in trainmodel method
-    {
+    {                          // Make a square of matrix
         StringBuilder modelBuilder = new StringBuilder();
         ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet());
         ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
@@ -270,8 +270,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
 
 
         // Sorts the elements inside the set of UserID
-        ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet()); // Create ArrayList to store data
-        Collections.sort(userIDArrayList); // ArrayList will allow to sort by using Collections sort
+//        ArrayList<Integer> userIDArrayList = new ArrayList<>(users.keySet()); // Create ArrayList to store data
+//        Collections.sort(userIDArrayList); // ArrayList will allow to sort by using Collections sort
         // Appends the Total user number
         modelBuilder.append("@NUM_USERS " + users.size() + "\n");
 
@@ -280,8 +280,8 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
         userMap(); // This is method can be remove
 
         // Sorts the elements inside the set of MovieID
-        ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
-        Collections.sort(movieIDArrayList);
+//        ArrayList<Integer> movieIDArrayList = new ArrayList<>(movies.keySet()); // movies Map will allow to use keySet in ArrayList by create new one
+//        Collections.sort(movieIDArrayList);
 
         // Appends the Total movie number
         modelBuilder.append("@NUM_MOVIES "+ movies.size() + "\n");
@@ -308,7 +308,7 @@ public class SimpleMovieRecommender implements BaseMovieRecommender{
     }
 
     //------------------------------------------- Train Model ----------------------------------------------------------//
-    
+
     @Override
     public void loadModel(String modelFilename){
         String modelContent = null;
