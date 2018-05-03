@@ -1,0 +1,18 @@
+java -jar NetFlict.jar parse small/movies.csv small/users.train.csv
+
+java -jar NetFlict.jar train small/movies.csv small/users.train.csv small/small.simple.model
+
+java -jar NetFlict.jar test small/movies.csv small/users.train.csv small/small.simple.model small/users.test.csv small/small.simple.result
+
+java -jar NetFlict.jar recommend small/movies.csv small/users.train.csv small/small.simple.model 19
+
+
+java -jar MainController.jar parse small/movies.csv small/users.train.csv
+
+java -jar MainController.jar train small/movies.csv small/users.train.csv small/small.simple.model
+
+java -jar MainController.jar test small/movies.csv small/users.train.csv small/small.simple.model small/users.test.csv small/small.simple.result
+
+java -jar MainController.jar recommend small/movies.csv small/users.train.csv small/small.simple.model 19
+
+
