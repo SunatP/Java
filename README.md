@@ -21,7 +21,7 @@ For ICT Student Mahidol University
 * Goto [Week 13](https://github.com/SunatP/Java/tree/master/Week%2013)
 * Goto [Week 14](https://github.com/SunatP/Java/tree/master/Week%2014)
 
-# Object Oriented Programming 
+# Object Oriented Programming Project
 
 * Project 1 [Final Fantasy](https://github.com/SunatP/Java/tree/master/Project%20FinalFanta)
 * Project 2 [Moogle](https://github.com/SunatP/Java/tree/master/Moogle)
