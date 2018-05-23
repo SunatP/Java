@@ -1,3 +1,5 @@
+# Lab
+
 | Lab Week 1 - 7 | Lab Week 9 - 14 |
 | --------- | ---------- |
 |[Week 1](https://github.com/SunatP/Java/tree/master/Week%201)|[Week 9](https://github.com/SunatP/Java/tree/master/Week%209)|
