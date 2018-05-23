@@ -1,4 +1,4 @@
-# Lab
+# All Lab in 1 Semester
 
 | Lab Week 1 - 7 | Lab Week 9 - 14 |
 | --------- | ---------- |
@@ -13,7 +13,7 @@
 # Mock Exam Prepare For Midterm
 
 * [Mock Exam](https://github.com/SunatP/Java/tree/master/Mock%20Exam)
----
+
 # Object Oriented Programming Project
 
 * Project 1 [Final Fantasy](https://github.com/SunatP/Java/tree/master/Project%20FinalFanta)
@@ -22,4 +22,4 @@
 ![Moogle](picture/moogle.png)
 * Project 3 [NetFlict](https://github.com/SunatP/Java/tree/master/NetFlict)
 ![Moogle](picture/netflict.png)
----
+
