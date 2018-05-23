@@ -28,5 +28,6 @@ For ICT Student Mahidol University
 # Object Oriented Programming Project
 
 * Project 1 [Final Fantasy](https://github.com/SunatP/Java/tree/master/Project%20FinalFanta)
+![Final Fantasy](http://www.gamemonday.com/wp-content/uploads/2018/02/FINAL-FANTASY-XV-WINDOWS-EDITION-demo-03.jpg)
 * Project 2 [Moogle](https://github.com/SunatP/Java/tree/master/Moogle)
 * Project 3 [NetFlict](https://github.com/SunatP/Java/tree/master/NetFlict)
