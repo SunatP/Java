@@ -2,7 +2,7 @@
 For ICT Student Mahidol University
 -----------------------------------------------------------------------------------------------
 
-# Lab Week 1 - 7 (Before Midterm)
+# Lab Week 1 - 7 
 
 * [Week 1](https://github.com/SunatP/Java/tree/master/Week%201)
 * [Week 2](https://github.com/SunatP/Java/tree/master/Week%202)
@@ -12,7 +12,11 @@ For ICT Student Mahidol University
 * [Week 6](https://github.com/SunatP/Java/tree/master/Week%206)
 * [Week 7](https://github.com/SunatP/Java/tree/master/Week%207)
 
-# Lab Week 9 - 14 (Final Exam)
+# Mock Exam Prepare For Midterm
+
+* [Mock Exam](https://github.com/SunatP/Java/tree/master/Mock%20Exam)
+
+# Lab Week 9 - 14 
 
 * [Week 9](https://github.com/SunatP/Java/tree/master/Week%209)
 * [Week 10](https://github.com/SunatP/Java/tree/master/Week%2010)
