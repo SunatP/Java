@@ -1,4 +1,4 @@
-# All Lab in 1 Semester
+# All Lab in 1 Semester :pushpin:
 
 | Lab Week 1 - 7 | Lab Week 9 - 14 |
 | --------- | ---------- |
