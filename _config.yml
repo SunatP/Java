@@ -1,1 +1,10 @@
-theme: jekyll-theme-slate
+
+title: [ITCS208 Object Oriented Programming]
+description: [For ICT Student Mahidol University]
+
+theme: jekyll-theme-minimal
+
+plugins:
+  - jemoji
+
+logo: [picture/Fbulldog.jpg]

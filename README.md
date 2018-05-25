@@ -1,6 +1,4 @@
-﻿# ITCS208 Object Oriented Programming 
-For ICT Student Mahidol University
------------------------------------------------------------------------------------------------
+# All Lab in 1 Semester 
 
 | Lab Week 1 - 7 | Lab Week 9 - 14 |
 | --------- | ---------- |
@@ -24,3 +22,4 @@ For ICT Student Mahidol University
 ![Moogle](picture/moogle.png)
 * Project 3 [NetFlict](https://github.com/SunatP/Java/tree/master/NetFlict)
 ![Moogle](picture/netflict.png)
+
