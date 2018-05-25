@@ -1,6 +1,29 @@
-language: ruby
-cache: bundler
 sudo: false
-rvm: 2.2
-install: gem install rails
+language: ruby
+rvm:
+- 2.0
+- 2.1
+- 2.2
+matrix:
+  include:
+    - rvm: 1.9.3
+      env: BUNTO_VERSION=1.0
+env:
+  matrix:
+    - BUNTO_VERSION=1.0
+    - BUNTO_VERSION=2.0
+branches:
+  only:
+    - master
+before_script:
+  - chmod a+x script/bootstrap
+  - chmod a+x script/cibuild
+  - chmod a+x script/rebund
+  - chmod a+x script/release
+install:
+- travis_retry script/bootstrap
 script: script/cibuild
+notifications:
+  email:
+    on_success: never
+    on_failure: change
