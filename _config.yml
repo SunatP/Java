@@ -3,3 +3,6 @@ title: [ITCS208 Object Oriented Programming]
 description: [For ICT Student Mahidol University]
 
 theme: jekyll-theme-slate
+
+plugins:
+  - jemoji
