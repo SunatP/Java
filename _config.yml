@@ -7,4 +7,5 @@ theme: jekyll-theme-minimal
 plugins:
   - jemoji
 
-logo: [picture/Fbulldog.jpg]
+logo: /picture/Frenchbulldog.jpg
+show_downloads: true
