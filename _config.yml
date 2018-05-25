@@ -8,3 +8,4 @@ plugins:
   - jemoji
 
 logo: /picture/Frenchbulldog.jpg
+show_downloads: true
