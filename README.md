@@ -1,5 +1,5 @@
 # All Lab in 1 Semester 
-[![Build Status](https://travis-ci.org/SunatP/Java.svg?branch=master)](https://travis-ci.org/SunatP/Java)
+//[![Build Status](https://travis-ci.org/SunatP/Java.svg?branch=master)](https://travis-ci.org/SunatP/Java)
 
 | Lab Week 1 - 7 | Lab Week 9 - 14 |
 | --------- | ---------- |
