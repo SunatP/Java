@@ -6,3 +6,5 @@ theme: jekyll-theme-minimal
 
 plugins:
   - jemoji
+
+logo: [picture/Fbulldog.jpg]
