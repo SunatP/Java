@@ -20,6 +20,9 @@ before_script:
   - chmod a+x script/cibuild
   - chmod a+x script/rebund
   - chmod a+x script/release
+  
+before_install:
+  - chmod +x build.sh  
 install:
 - travis_retry script/bootstrap
 script: script/cibuild
