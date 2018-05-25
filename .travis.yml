@@ -4,3 +4,4 @@ sudo: false
 rvm: 2.2
 
 
+script: script/cibuild
