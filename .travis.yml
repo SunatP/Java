@@ -3,5 +3,8 @@ cache: bundler
 sudo: false
 rvm: 2.2
 
+before_install:
+  - chmod +x build.sh
+  
 install: script/bootstrap
 script: script/cibuild
