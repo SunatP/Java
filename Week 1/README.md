@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # Introduce OOP 
 OOP คือใน JAVA คือ Object-Oriended Programming ตัวอย่าง หรือกดที่ [Lab 1 (LetterPrinter)](https://github.com/SunatP/Java/blob/master/Week%201/LetterPrinter.java)
   
