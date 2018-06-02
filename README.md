@@ -16,7 +16,7 @@
 
 # Object Oriented Programming Project
 
-* Project 1 [Final Fantasy](https://github.com/SunatP/Java/tree/master/Project%20FinalFanta)
+* Project 1 [Final Fantasy](https://github.com/SunatP/Java/tree/master/Project%20FinalFantasy)
 ![Final Fantasy](http://www.gamemonday.com/wp-content/uploads/2018/02/FINAL-FANTASY-XV-WINDOWS-EDITION-demo-03.jpg)
 * Project 2 [Moogle](https://github.com/SunatP/Java/tree/master/Moogle)
 ![Moogle](picture/moogle.png)
