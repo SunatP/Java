@@ -23,5 +23,4 @@
 * Project 3 [NetFlict](https://github.com/SunatP/Java/tree/master/NetFlict)
 ![Moogle](picture/netflict.png)
 
-Page 2 [Next>>](https://github.com/SunatP/Java/blob/master/P2.md)
 
