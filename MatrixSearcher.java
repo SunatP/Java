@@ -63,7 +63,7 @@ public class MatrixSearcher {
 //        If max < mat[max_index][mid+1], recur for right half of matrix. true
 
        
-}
+    }
 }
  
 
