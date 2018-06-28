@@ -24,7 +24,7 @@
 </br>
 จากนั้นให้ทำการสร้างเมธอด(Method) ที่รับและส่งค่าที่มีชื่อว่า **set** และ **get** เมธอด(Method)อยู่สองวิธีที่คือ คลิกขวาเลือก Source -> Generate Getters and Setters...
 
-![How-to](https://i.stack.imgur.com/Ki2JB.png)
+![How-to](https://github.com/SunatP/Java/blob/master/Week%202/picture/Getter%20Setter.png)
 
 
 ## โครงสร้างของ JAVA
