@@ -1,0 +1,4 @@
+[diary2.txt]
+[DATE] : 01/03/2017
+[TITLE] : A wonderful serenity
+[CONTENT] : A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.

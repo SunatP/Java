@@ -1,0 +1,4 @@
+[diary1.txt]
+[DATE]:13/03/2017
+[TITLE]:Far far away.
+[CONTENT]:Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. 
