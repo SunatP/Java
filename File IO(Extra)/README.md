@@ -1,126 +1,90 @@
 
-# Lab 11 : File Input READ, WRITE (File I/O)
-โดยในแล็ปนี้จะต้องทำการสร้างไฟล์ขึ้นมาสองไฟล์ ไฟล์ที่แรกชื่อว่า StudentProfile กดดูโค้ดได้ที่ [StudentProfile](https://github.com/SunatP/Java/blob/master/Week%202/SourceCode/StudentProfile.java) </br>
-ไฟล์สองชื่อ ManageStudent กดดูโค้ดได้ที่ [ManageStudent](https://github.com/SunatP/Java/blob/master/Week%202/SourceCode/ManageStudent.java) เป็นไฟล์คลาสหลักควบคุม </br>
+# Lab 11 : File I/O
+ไฟล์แลปนี้ได้ทำการสร้าง Class มาให้แล้วเพียงแค่ทำการเติมโค้ดให้ครบทั้งสอง Method จึงจะสมบูรณ์ กดดูคลิก [DiaryRunner](https://github.com/SunatP/Java/blob/master/File%20IO(Extra)/DiaryRunner.java) </br>
 
-### Task 1: Implement class **StudentProfile** in StudentProfile.java to store **studentID**, **name**, **age**, and **address**. Please make sure that these variables cannot be accessed directly by other classes. Then, implement methods to store and retrieve all these variables. For example, **setStudentID(int id)** and **getStudentID()**. </br>
 
-โดยอันดับแรกจะต้องสร้างไฟล์ที่มีชื่อคลาสว่า **StudentProfile** ขึ้นมา แล้วประกาศตัวแปรขึ้นมาเก็บค่า **studentID** , **name** , **age** , **address** เมื่อสร้างแล้วจะมีโค้ดหน้าตาประมาณนี้
+### Task 1: File Input READ, WRITE  </br>
+
+ขั้นตอนในของแลปนี้คือทำให้โค้ดในเมธอด **public static void readContent** ซึ่งเมธอดนี้จะให้ทำการเติมโค้ดให้สามารถอ่านไฟล์ที่ชื่อว่า **Diary1.txt** ได้ โค้ดก่อนที่จะทำการแก้ไขมีดังนี้
 
 ```java
-  public class StudentProfile {
-    private int StudentID ;
-    private String Name ;
-    private int Age ;
-    private String Address;
+ public static void readContent(String diaryFilename) throws Exception
+ {
+    //CODE HERE
+ }
+```
+จากนั้นให้อิมพอร์ต ไลบรารี่ที่ทำหน้าที่อ่านไฟล์ได้คือ **File** </br> 
 
-    public StudentProfile(int ID, String name, int age, String address){
-    StudentID = ID;
-    Name = name;
-    Age = age;
-    Address = address; 
-}
+```java
+import java.io.File;
+import java.io.BufferedReader;
 ```
-</br>
-จากนั้นให้ทำการสร้างเมธอด(Method) ที่รับและส่งค่าที่มีชื่อว่า **set** และ **get** เมธอด(Method)อยู่สองวิธีที่คือ คลิกขวาเลือก Source -> Generate Getters and Setters...
+กลับมาที่เมธอด **readContent** ไลบรารี่ที่เราได้ทำการอิมพอร์ตเข้าไปนั้นจะนำมาใช้งานในส่วนนี้ซึ่ง **java.io.File** นี้จะนำมาอ่านไฟล์ที่มีตัวแปรชื่อว่า **diaryFilename**
+โดยโค้ดที่จะเขียนมีลักษณะประมาณนี้
+```java
+    File content = new file(diaryFilename); //content คือชื่อตัวแปรสามารถตั้งชื่ออะไรก็ได้
+```
+จากนั้นเราจะใช้ **Try กับ catch** มาใช้ด้วยเนื่องจากเมธอดนี้ได้มีการ **Throw Exception** หากเกิดข้อผิดพลาดระหว่างอ่านไฟล์จะสามารถแจ้งให้ทราบได้
+โดยวิธีการอ่านไฟล์โดยใช้ **Try กับ catch** จะได้โค้ดประมาณนี้
+```java
+ try (BufferedReader reader = new BufferedReader(new FileReader(content))) //try ตัวนี้นำมาอ่านไฟล์โดยใช้ Bufferreader เพื่อนำไฟล์ที่อ่านค่าได้มาเก็บค่าไว้ก่อน
+            {
+                String line = null; // กำหนดให้ String ชื่อ line นั้นไม่มีค่าอะไรเลย
+                while((line = reader.readLine()) != null){ // while loop ตัวนี้จะทำการอ่านค่าไปเรื่อยๆโดยใช้ line ที่เป็นสตริงมาเป็นตัวอ่านข้อความจนเสร็จ
+                    System.out.println(line); // แสดงข้อความที่อ่านออกมาได้
+                }
+            }
+```
 
-![How-to](https://github.com/SunatP/Java/blob/master/Week%202/picture/Getter%20Setter.png)
-
-กด Select All แล้วกด OK หรือ Enter ที่คีย์บอร์ดจะได้โค้ดประมาณนี้ </br>
+เมื่อทำเสร็จจะได้เมธอด **readContent** ประมาณนี้
+```java
+public static void readContent(String diaryFilename ) throws Exception{
+		//CODE HERE DO THIS FIRST BEFORE DO METHOD newDiary
+                File content = new File(diaryFilename);
+            try (
+                    BufferedReader reader = new BufferedReader(new FileReader(content))
+                    )
+            {
+                String line = null;
+                while((line = reader.readLine()) != null){
+                    System.out.println(line);
+                }
+            }
+	}
 ```
-public void setStudentID(int id)
-{
- StudentID = id;
-}
-public void setName(String name)
-{
-Name = name;
-}
-public void setAge(int age)
-{
-Age = age;
-}
-public void setAddress(String address)
-{
- Address = address;
-}
-
-public String getAddress()
-{
- return Address;
-}
-public int getStudentID()
-{
- return StudentID;
-}
-public String getName()
-{
-return Name;
-}
-public int getAge()
-{
-return  Age;
-}
+จากนั้นกลับไปทำเมธอดที่ชื่อว่า **newDiary** ต่อ โดยในไฟล์บอกว่าให้ทำการสร้างไฟล์ขึ้นมาและตรวจสอบว่ามีไฟล์แล้วหรือยัง เมธอดนี้จะมีรูปร่างประมาณนี้
+```java
+public static void newDiary(String diaryFilename , String date, String title, String content) throws Exception{
+		//CODE HERE
+	}
 ```
-</br>
-
-### Task 2: Implement method **getAllInfo()** in StudentProfile to print all student information in the following format:
-เราจะต้องสร้างเมธอดขึ้นมาอีกอันชื่อว่า GetAllInfo ขึ้นมาเพื่อแสดงผลลัพธ์ให้ถูกต้อง ตัวอย่าง
+ให้เราทำการอิมพอร์ทไลบรารี่นี้เข้าไป
+```java
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 ```
-5888023 : Peter Copper, 22 26 Waterloo street, Leamington spa CV312RT
+เมื่ออิมพอร์ตเสร็จแล้วให้กลับมาทำโค้ดที่เมธอดต่อโดยเราจะใช้ **File** มาใช้ต่อเนื่องจากเราเมธอดนี้เราจะทำการสร้างไฟล์ใหม่ขึ้นมาอีกอันนึงโค้ดจะมีหน้าตาประมาณนี้
+```java
+             File File = new File(diaryFilename);
 ```
-โค้ดที่เราจะสร้างเมธอดนี้เพื่อแสดงผลลัพธ์ตามด้านบนจะมีลักษณะประมาณนี้
-```
-public void getAllinfo()
-{
-    System.out.println(StudentID + Name + Age + Address);
-}
-```
-### Task 3: Implement a class ManageStudent in ManageStudent.java. In the main method of this class, instantiate two StudentProfile objects to store your and your friend’s information, then print it out via getAllInfo().
-เราจะต้องสร้างคลาสอีกคลาสนึงที่ชื่อว่า **ManageStudent** ขึ้นมาเพื่อเรียกใช้คลาส **StudentProfile** โดยจะต้องสร้างให้อยู่ในตำแหน่งเดียวกันกับไฟล์ **StudentProfile** เมื่อสร้างแล้ววิธีการเรียกจะมีดังนี้
-```
-public class ManageStudent {
-    public static void main(String fdxzfdxf[]){
-        StudentProfile std1 = new StudentProfile(6088130, "Sunat", 18, "123456asdsad");
-        StudentProfile std2 = new StudentProfile(5888023, "Peter Copper", 22, "26 Waterloo street, Leamington spa CV312RT");
-        std1.getAllinfo();
-        std2.getAllinfo();
-    }
-}
-```
-</br>
-**StudentProfile std1** ตรง StudentProfile นี้เรียกว่าการดึงคลาส ของ StudentProfile เข้ามา แล้วสร้างชื่อตัวแปรให้มันว่า **std1** หลังจากชื่อตัวแปรที่มี = new StudentProfile(); นั้นคือการป้อนข้อมูลให้กับคลาสที่จะนำมาใช้
-</br>
-
-### Challenge Bonus (Optional):
-For the class StudentProfile, use static variable to count number of students that are created. Implement the method ageDiff in class ManageStudent to calculate different between ages of any two students. Becareful!!, the result should always return a positive value. Show the results to an instructor to get the bonus score.  :blush: </br>
-
-อันนี้จะเป็นการเอาอายุทั้งสองคนมาลบกันโดยใช้คลาสของ **StudentProfile** และ **ManageStudent** มาเกี่ยวข้องโดยสร้างเมธอดไว้ในคลาส **ManageStudent** ชื่ออะไรก็ได้ เช่น AgeDifferent , AgeDiff ตัวอย่าง
-```
- public static void agediff (StudentProfile std1, StudentProfile std2)
-    {
-    	System.out.println(Math.abs(std1.getAge()-std2.getAge()));
-    	
-    }
-    
-```
-</br>
-แล้วเรียกใช้เมธอด(Method)นี้โดยการเอาชื่อเมธอด ไปใส่แล้วเติม (ในวงเล็บต้องมีข้อมูลทั้งสองคนด้วย) เช่น agediff(std1,std2); จะได้โค้ดประมาณนี้
-
-```
-public class ManageStudent {
-    public static void main(String fdxzfdxf[]){
-        StudentProfile std1 = new StudentProfile(6088130, "Sunat", 18, "123456asdsad");
-        StudentProfile std2 = new StudentProfile(6088124, "Chawna", 2, "chsadsad55474");
-        std1.getAllinfo();
-        std2.getAllinfo();
-        agediff(std1,std2);
-    }
-    public static void agediff (StudentProfile std1, StudentProfile std2)
-    {
-    	System.out.println(Math.abs(std1.getAge()-std2.getAge()));
-    	
-    }
-    
-}
+จากนั้นเราจะใช้ **Try Catch** มาช่วยต่อเนื่องจากเมธอดนี้ได้มีการใส่ **Throw Exception** เอาไว้โดยโค้ดจะประมาณแบบนี้
+```java
+try {
+			if(!File.exists()){  //ถ้าไฟล์ยังไม่ีมีให้เข้า loop if มาสร้างไฟล์
+                            File file = new File(diaryFilename);
+                            try (BufferedWriter BufferWriter = new BufferedWriter(new FileWriter(file,false))) { // ใช้ bufferwriter มาเขียนไฟล์หากไฟล์ไม่มี
+                                BufferWriter.write("[diary2.txt]"); // สร้างไฟล์ชื่อ diary2.txt
+                                BufferWriter.newLine(); // ในไฟล์นั้นจะให้ขึ้นบรรทัดใหม่
+                                BufferWriter.write("[DATE] : "+date); // ใส่ข้อความวันที่ลงไป
+                                BufferWriter.newLine(); // ในไฟล์นั้นจะให้ขึ้นบรรทัดใหม่
+                                BufferWriter.write("[TITLE] : "+title); // ใส่ไตเติ้ลลงไป
+                                BufferWriter.newLine(); // ในไฟล์นั้นจะให้ขึ้นบรรทัดใหม่
+                                BufferWriter.write("[CONTENT] : "+content); // ใส่เนื้อหาลงไป
+                            }
+                        } else {
+                        }
+		} catch (IOException e) {
+                 // TODO: handle exception
+                 
+		}
 ```
