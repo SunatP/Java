@@ -9,3 +9,8 @@ matrix:
       before_install:
         - rm "${JAVA_HOME}/lib/security/cacerts"
         - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
+script:
+  - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
+language: ruby
+rvm:
+  - 2.0.0
