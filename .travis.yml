@@ -3,9 +3,13 @@ jdk:
   - oraclejdk8
   - oraclejdk9
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-  - $HOME/.m2
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
 
 matrix:
   include:
@@ -14,8 +18,17 @@ matrix:
         - rm "${JAVA_HOME}/lib/security/cacerts"
         - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
 script:
+ - jdk_switcher use oraclejdk8
+  - # do stuff with Java 8
+  - jdk_switcher use openjdk8
+  - # do stuff with open Java 8
   - cd ./Project FinalFantasy/
-language: ruby
+  
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer  
+language: java
 rvm:
   - 2.0.0
 install:
