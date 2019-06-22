@@ -3,6 +3,10 @@ jdk:
   - oraclejdk8
   - oraclejdk9
 
+cache:
+  directories:
+  - $HOME/.m2
+
 matrix:
   include:
     - jdk: openjdk10
@@ -17,3 +21,6 @@ rvm:
 install:
 - gem install "rubygems-update:<3.0.0" --no-document
 - update_rubygems
+
+script
+- cd ./Project FinalFantasy/
