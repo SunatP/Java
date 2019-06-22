@@ -1,38 +1,23 @@
-jdk:
-  - openjdk8
-  - oraclejdk8
-  - oraclejdk9
+language: java
 
-before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+dist: trusty
+sudo: false
+
+# Get latest install-jdk.sh script
+before_install:
+  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
 
 matrix:
   include:
-    - jdk: openjdk10
-      before_install:
-        - rm "${JAVA_HOME}/lib/security/cacerts"
-        - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
+# Java 10 "Oracle JDK"
+    - env: JDK='Oracle JDK 10'
+      install: . ./install-jdk.sh -F 10 -L BCL
+# Java 10 "OpenJDK"
+    - env: JDK='OpenJDK 10'
+      install: . ./install-jdk.sh -F 10 -L GPL
+
 script:
- - jdk_switcher use oraclejdk8
-  - # do stuff with Java 8
-  - jdk_switcher use openjdk8
-  - # do stuff with open Java 8
-  - cd ./Project FinalFantasy/
-  
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer  
-language: java
-rvm:
-  - 2.0.0
-install:
-- gem install "rubygems-update:<3.0.0" --no-document
-- update_rubygems
-
-
+# Display Gradle, Groovy, JVM and other versions
+  - ./gradlew --version
+# Run all tests
+  - ./gradlew test
