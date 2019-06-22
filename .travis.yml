@@ -14,7 +14,7 @@ matrix:
         - rm "${JAVA_HOME}/lib/security/cacerts"
         - ln -s /etc/ssl/certs/java/cacerts "${JAVA_HOME}/lib/security/cacerts"
 script:
-  - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
+  - cd ./Project FinalFantasy/
 language: ruby
 rvm:
   - 2.0.0
@@ -22,5 +22,4 @@ install:
 - gem install "rubygems-update:<3.0.0" --no-document
 - update_rubygems
 
-script
-- cd ./Project FinalFantasy/
+
