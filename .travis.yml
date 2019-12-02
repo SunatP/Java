@@ -27,14 +27,16 @@ android:
     - sys-img-x86-android-26
     - sys-img-armeabi-v7a-android-17
 
+before_install:
+  - cd ./Moogle-For-Android/
+  - chmod +x ./gradlew
+  - git update-index --chmod=+x gradlew.
 before_script:
   - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a -c 100M
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
-  - cd ./Moogle-For-Android/
-  - chmod +x ./gradlew
-  - git update-index --chmod=+x gradlew.
+  
 
   before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -49,4 +51,5 @@ script:
   # - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
 
 # Display Gradle, Groovy, JVM and other versions
-  - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+  - ./gradlew assembleDebug
