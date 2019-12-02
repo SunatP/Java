@@ -8,7 +8,7 @@ before_install:
   - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
   - cd ./Moogle-For-Android/
   - chmod +x gradlew
-  - gradle wrapper --gradle-version 5.4.1
+  # - gradle wrapper --gradle-version 5.4.1
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
