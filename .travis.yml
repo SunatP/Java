@@ -23,11 +23,11 @@ os: linux
 jdk:
   - oraclejdk8
 
-script:
-  # - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
-  # - cd ./Moogle-For-Android/
-# Display Gradle, Groovy, JVM and other versions
-  - ./gradlew build
-# Run all tests
-  - ./gradlew test
-  - ./gradlew build --scan -s
+# script:
+#   # - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
+#   # - cd ./Moogle-For-Android/
+# # Display Gradle, Groovy, JVM and other versions
+#   - ./gradlew build
+# # Run all tests
+#   - ./gradlew test
+#   - ./gradlew build --scan -s
