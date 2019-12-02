@@ -32,6 +32,8 @@ before_script:
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
+  - cd ./Moogle-For-Android/
+  - sudo chmod +x ./gradlew
 
   before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -44,7 +46,6 @@ cache:
 
 script:
   # - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
-  - cd ./Moogle-For-Android/
-  - sudo chmod +x ./gradlew
+
 # Display Gradle, Groovy, JVM and other versions
   - "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
