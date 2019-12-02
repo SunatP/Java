@@ -6,8 +6,8 @@ sudo: false
 # Get latest install-jdk.sh script
 before_install:
   - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
-  - cd ./Moogle-For-Android/
-  - chmod +x gradlew
+  # - cd ./Moogle-For-Android/
+  # - chmod +x gradlew
   # - gradle wrapper --gradle-version 5.4.1
 
 before_cache:
@@ -21,13 +21,13 @@ cache:
 
 os: linux
 jdk:
-  - oraclejdk8
+  - oraclejdk12
 
-# script:
-#   # - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
-#   # - cd ./Moogle-For-Android/
-# # Display Gradle, Groovy, JVM and other versions
-#   - ./gradlew build
-# # Run all tests
-#   - ./gradlew test
-#   - ./gradlew build --scan -s
+script:
+  # - "bundle exec rake neo4j:install['community-2.2.0-M02'] neo4j:start default --trace"
+  - cd ./Moogle-For-Android/
+# Display Gradle, Groovy, JVM and other versions
+  - ./gradlew build
+# Run all tests
+  - ./gradlew test
+  - ./gradlew build --scan -s
